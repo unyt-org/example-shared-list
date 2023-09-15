@@ -27,6 +27,7 @@ We split our code base in [back-end](https://unyt.org/glossary#back-end), [front
 └── example-shared-list/
     ├── backend/
     │   ├── .dx                 // Config file for deployment
+    │   ├── list.ts             // List handler
     │   └── entrypoint.tsx      // Back-end entrypoint
     ├── common/
     │   ├── compoments/
@@ -39,7 +40,7 @@ We split our code base in [back-end](https://unyt.org/glossary#back-end), [front
     │   ├── entrypoint.css      // Front-end style declaration
     │   └── entrypoint.tsx      // Front-end entrypoint
     ├── app.dx                  // Endpoint config file
-    └── deno.json          // Deno config file
+    └── deno.json               // Deno config file
 ```
 
 ## Features
