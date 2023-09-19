@@ -3,7 +3,7 @@
 This repository demonstrates some essential concept of the [UIX](https://uix.unyt.org) framework such as [pointers](https://unyt.org/glossary#pointer), [SSR](https://unyt.org/glossary#ssr) and [Web components](https://unyt.org/glossary#web-components) using the example of a **shared shopping list**.
 
 
-The repository includes persistent data storage and implements both [front-end](https://unyt.org/glossary#back-end) and [back-end](https://unyt.org/glossary#back-end) rendering with [hydration](https://unyt.org/glossary#hydration).
+The repository includes persistent data storage and implements both [front-end](https://unyt.org/glossary#front-end) and [back-end](https://unyt.org/glossary#back-end) rendering with [hydration](https://unyt.org/glossary#hydration).
 
 ## Installation
 1. Install the **UIX command line tool** following the [Getting Started](https://docs.unyt.org/manual/uix/getting-started#the-uix-command-line-tool) guide in our documentation.
