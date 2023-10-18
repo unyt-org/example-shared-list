@@ -9,5 +9,5 @@ location: stage {
 },
 
 domain: stage {
-	prod: 'shared-list.unyt.app'
+	prod: 'shared-list.example.unyt.org'
 }
