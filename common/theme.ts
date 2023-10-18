@@ -1,6 +1,6 @@
-import { UIX } from "uix";
+import { Theme } from "uix/base/theme.ts";
 
-UIX.Theme.setDarkTheme(UIX.Theme.extend(UIX.Theme.DARK, 'unyt-dark', {
+Theme.setDarkTheme(Theme.extend(Theme.DARK, 'unyt-dark', {
 	unyt_razzmatazz: '#ff0059',
 	unyt_sky_blue: '#2AAAD7',
 	accent: '#2AAAD7',
@@ -19,7 +19,7 @@ UIX.Theme.setDarkTheme(UIX.Theme.extend(UIX.Theme.DARK, 'unyt-dark', {
 }))
 
 
-UIX.Theme.setLightTheme(UIX.Theme.extend(UIX.Theme.LIGHT, 'unyt-light', {
+Theme.setLightTheme(Theme.extend(Theme.LIGHT, 'unyt-light', {
 	unyt_razzmatazz: '#ff0059',
 	unyt_sky_blue: '#2AAAD7',
 	text_highlight: "#000000",
@@ -40,4 +40,4 @@ UIX.Theme.setLightTheme(UIX.Theme.extend(UIX.Theme.LIGHT, 'unyt-light', {
 
 
 // default mode is dark mode
-once(() => UIX.Theme.setMode("dark"));
+once(() => Theme.setMode("dark"));

@@ -1,8 +1,9 @@
-import { UIX } from "uix";
 import { SharedList } from "backend/lists.ts";
-import { map } from "unyt_core/functions.ts";
+import { map } from "datex-core-legacy/functions.ts";
+import { template } from "uix/html/anonymous-components.ts";
+import { UIXComponent } from "uix/components/UIXComponent.ts";
 
-@UIX.template(function(this: Overview) {
+@template(function(this: Overview) {
 	return <div>
 		<h1>Overview</h1>
 		{
@@ -12,4 +13,4 @@ import { map } from "unyt_core/functions.ts";
 		}
 	</div>
 })
-export class Overview extends UIX.BaseComponent<{lists: Map<string, SharedList>}> {}
+export class Overview extends UIXComponent<{lists: Map<string, SharedList>}> {}

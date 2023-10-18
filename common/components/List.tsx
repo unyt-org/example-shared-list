@@ -1,8 +1,9 @@
-import { UIX } from "uix";
 import { type SharedList } from "backend/lists.ts";
-import { map, always } from "unyt_core/functions.ts";
+import { map, always } from "datex-core-legacy/functions.ts";
+import { template } from "uix/html/anonymous-components.ts";
+import { UIXComponent } from "uix/components/UIXComponent.ts";
 
-@UIX.template(function(this: List) {
+@template(function(this: List) {
 	return <div>
 		<div class="header">
 			<h1>{this.options.$.list.$.title}</h1>
@@ -18,40 +19,30 @@ import { map, always } from "unyt_core/functions.ts";
 				)
 			}
 		</ol>
-		<div class="button add-button" onclick={UIX.inDisplayContext(() => this.toggleDialog())}>
+		<div class="button add-button" onclick:frontend={() => this.dialog.showModal()}>
 			Add Item
 		</div>
-		<div class="button remove-button" onclick={UIX.inDisplayContext(() => this.removeChecked())}>
+		<div class="button remove-button" onclick:frontend={() => this.removeChecked()}>
 			Cleanup
 		</div>
-		<div class="dialog" id="dialog">
-			<input placeholder={"Enter item name"} type={"text"} id="name"/>
-			<input placeholder={"Enter amount"} type={"number"} id="amount" value={1} max={99}/>
+		<dialog id="dialog" onclick:frontend={function (this:HTMLDialogElement, event:Event) { if (event.target == this) this.close()}}>
+			<input placeholder="Enter item name" type="text" id="name"/>
+			<input placeholder="Enter amount" type="number" id="amount" value={1} max={99}/>
 			<select id="type">
 				<option>Bottle</option>
 				<option>Piece</option>
 				<option>Whatever</option>
 			</select>
-			<div id="add" onclick={UIX.inDisplayContext(() => this.addItem())}>Add</div>
-		</div>
+			<div id="add" onclick:frontend={() => this.addItem()}>Add</div>
+		</dialog>
 	</div>
 })
-export class List extends UIX.BaseComponent<UIX.BaseComponent.Options & {list: SharedList}> {
+export class List extends UIXComponent<UIXComponent.Options & {list: SharedList}> {
 	/** references to the DOM elements */
 	@id declare name: HTMLInputElement;
 	@id declare amount: HTMLInputElement;
 	@id declare type: HTMLOptionElement;
-	@id declare dialog: HTMLDivElement;
-
-	// Life-cycle method that is called when the component is displayed
-	protected override onDisplay(): void | Promise<void> {
-		console.info("The list pointer", this.options.list)
-	}
-
-	// Method to toggle the dialog
-	private toggleDialog(value?: boolean) {
-		this.dialog.classList.toggle("active", value);
-	}
+	@id declare dialog: HTMLDialogElement;
 
 	// Cleanup method that removes all checked items
 	private removeChecked() {
@@ -68,13 +59,19 @@ export class List extends UIX.BaseComponent<UIX.BaseComponent.Options & {list: S
 		if (!this.name.value)
 			return alert("Please enter a name");
 		
+		console.log("add",{
+			checked: false,
+			name: this.name.value,
+			amount: Number(this.amount.value),
+			type: this.type.value,
+		})
 		this.options.list.items.add($$({
 			checked: false,
 			name: this.name.value,
 			amount: Number(this.amount.value),
 			type: this.type.value,
 		}));
-		
-		this.toggleDialog(false);
+
+		this.dialog.close()
 	}
 }

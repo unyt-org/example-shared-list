@@ -1,16 +1,16 @@
 
 :host {
+
+	font-family: Helvetica, sans-serif;
+
 	&>div {
 		box-sizing: border-box;
 		padding: 10px;
 		margin: auto;
-		border-left: 1px solid gray;
-		border-right: 1px solid gray;
 		background-color: var(--bg_lighter);
 		max-width: 700px;
 		display: flex;
 		flex-direction: column;
-		width: calc(100% - 20px);
 		@media (max-width: 480px) {
 			border: 0px;
 			width: 100%;
@@ -73,16 +73,13 @@
 			}
 		}
 	}
-	.dialog {
-		display: none;
-		&.active {
-			display: flex;
-		}
-		position: fixed;
-		left: 0;
-		right: 0;
-		top: 0;
-		bottom: 0;
+
+	#dialog[open] {
+		display: flex;
+	}
+	
+	#dialog {
+		box-sizing: border-box;
 		margin: auto;
 		width: 500px;
 		height: fit-content;
@@ -95,6 +92,7 @@
 		flex-direction: column;
 		grid-gap: 20px;
 		gap: 20px;
+
 		input, select {
 			box-sizing: border-box;
 			padding: 20px;
