@@ -1,6 +1,5 @@
 import { listStorage } from "./lists.eternal.ts";
 
-// The list item type definition
 export type ListItem = {
 	name: string,
 	checked?: boolean,
@@ -8,23 +7,21 @@ export type ListItem = {
 	type?: string
 }
 
-// The shared list type definition
 export type SharedList = {
 	title: string,
 	items: Set<ListItem>
 }
 
-// Expose this class as public endpoint property
-@endpoint export class Lists {
 
-	@property static async get(id: string) {
+export class Lists {
+
+	static async get(id: string) {
+		// create new list if none exists
 		if (!listStorage.has(id)) {
-			// create new list
-			const newList: SharedList = {
+			listStorage.set(id, {
 				title: id,
-				items: $$(new Set())
-			}
-			listStorage.set(id, $$(newList));
+				items: new Set()
+			});
 		}
 		return listStorage.get(id)!;
 	}

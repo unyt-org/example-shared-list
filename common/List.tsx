@@ -1,7 +1,8 @@
-import { type SharedList } from "backend/lists.ts";
+import { ListItem, type SharedList } from "backend/lists.ts";
 import { map, always } from "datex-core-legacy/functions.ts";
 import { template } from "uix/html/anonymous-components.ts";
-import { UIXComponent } from "uix/components/UIXComponent.ts";
+import { Component } from "uix/components/Component.ts";
+import { ObjectRef } from "unyt_core/runtime/pointers.ts";
 
 @template(function(this: List) {
 	return <div>
@@ -10,7 +11,7 @@ import { UIXComponent } from "uix/components/UIXComponent.ts";
 		</div>
 		<ol>
 			{
-				map(this.options.list.items, (item, index) => 
+				map(this.options.list.items as Set<ObjectRef<ListItem>>, (item, index) => 
 					<li data-checked={item.$.checked}>
 						<input type="checkbox" checked={item.$.checked} id={`checkbox-${index}`}/>
 						<label for={`checkbox-${index}`}>{item.$.name}</label>
@@ -19,13 +20,13 @@ import { UIXComponent } from "uix/components/UIXComponent.ts";
 				)
 			}
 		</ol>
-		<div class="button add-button" onclick:frontend={() => this.dialog.showModal()}>
+		<button class="add-button" onclick:frontend={() => this.dialog.showModal()}>
 			Add Item
-		</div>
-		<div class="button remove-button" onclick:frontend={() => this.removeChecked()}>
+		</button>
+		<button class="remove-button" onclick:frontend={() => this.removeChecked()}>
 			Cleanup
-		</div>
-		<dialog id="dialog" onclick:frontend={function (this:HTMLDialogElement, event:Event) { if (event.target == this) this.close()}}>
+		</button>
+		<dialog id="dialog" onclick:frontend={function (e) { if (e.target == this) this.close()}}>
 			<input placeholder="Enter item name" type="text" id="name"/>
 			<input placeholder="Enter amount" type="number" id="amount" value={1} max={99}/>
 			<select id="type">
@@ -37,40 +38,36 @@ import { UIXComponent } from "uix/components/UIXComponent.ts";
 		</dialog>
 	</div>
 })
-export class List extends UIXComponent<UIXComponent.Options & {list: SharedList}> {
+export class List extends Component<{list: SharedList}> {
+	
 	/** references to the DOM elements */
 	@id declare name: HTMLInputElement;
 	@id declare amount: HTMLInputElement;
 	@id declare type: HTMLOptionElement;
 	@id declare dialog: HTMLDialogElement;
 
-	// Cleanup method that removes all checked items
+	/**
+	 * Remove all checked items
+	 */
 	private removeChecked() {
-		for (const item of [...this.options.list.items]) {
-			if (item.checked) {
-				console.info("Deleting item:", item)
-				this.options.list.items.delete(item)
-			}
-		}
+		[...this.options.list.items]
+			.filter(item => item.checked)
+			.forEach(item => this.options.list.items.delete(item))
 	}
 
-	// Method that adds an item to the list
+	/**
+	 * Add a new item to the list
+	 */
 	private addItem() {
 		if (!this.name.value)
 			return alert("Please enter a name");
-		
-		console.log("add",{
+
+		this.options.list.items.add({
 			checked: false,
 			name: this.name.value,
 			amount: Number(this.amount.value),
 			type: this.type.value,
-		})
-		this.options.list.items.add($$({
-			checked: false,
-			name: this.name.value,
-			amount: Number(this.amount.value),
-			type: this.type.value,
-		}));
+		});
 
 		this.dialog.close()
 	}
