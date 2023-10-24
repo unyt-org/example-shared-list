@@ -23,6 +23,7 @@
 			}
 		}
 		&>ol {
+			flex: 1;
 			margin: 0;
 			padding: 0;
 			&>li {
@@ -45,7 +46,7 @@
 					margin-left: 6px;
 					font-size: medium;
 				}
-				&[data-checked] {
+				&:has(:checked) {
 					opacity: 0.4;
 					text-decoration: line-through;
 				}
