@@ -15,12 +15,6 @@ function tsversion(x:any) {
 @template(function(this: Overview) {
 	return <div>
 		<h1>Overview</h1>
-		<button onclick:frontend={async () => {
-			use("no-datex", x, tsversion); 
-			const v = await tsversion({a:3});
-			console.log(x, v.val)
-			v.val = "2340";
-		}}>click</button>
 		{
 			...map(this.options.lists, ([key, val]) => (
 				<a href={`/${key}`}>{val.title}</a>
