@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites id="20240328_152155" name="Tests on 3/28/2024 3:21:55 PM" tests="1" failures="0" time="0.294">
-  <testsuite id="0" name="NewAAAAbbTest" tests="1" failures="0" time="0.294">
-    <testcase id="firstTest" name="first test" time="0.294">
-    </testcase>
-  </testsuite>
-</testsuites>
