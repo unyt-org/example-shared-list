@@ -26,7 +26,7 @@ The repository includes persistent data storage and implements both
    ```
 3. Run the project local
    ```bash
-   $ uix -lb --port 8000
+   $ uix --port 8000
    ```
 4. Navigate to your favourite web browser and open http://localhost:8000 to see
    everything in action.
@@ -105,4 +105,4 @@ is ready for user interactions as soon as it loads.
 
 ---
 
-<sub>&copy; unyt 2023 • [unyt.org](https://unyt.org)</sub>
+<sub>&copy; unyt 2024 • [unyt.org](https://unyt.org)</sub>
