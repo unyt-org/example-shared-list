@@ -1,4 +1,3 @@
-// deno-lint-ignore-file require-await
 import { listStorage } from "./lists.eternal.ts";
 
 export type ListItem = {
@@ -10,18 +9,18 @@ export type ListItem = {
 
 export type SharedList = {
 	title: string,
-	items: Set<ListItem>
+	items: ListItem[]
 }
 
 export class Lists {
-	static async get(id: string) {
+	static async get(id: string): Promise<SharedList> {
 		// create new list if none exists
-		if (!listStorage.has(id)) {
-			listStorage.set(id, {
+		if (!await listStorage.has(id)) {
+			await listStorage.set(id, {
 				title: id,
-				items: new Set()
+				items: []
 			});
 		}
-		return listStorage.get(id)!;
+		return (await listStorage.get(id))!;
 	}
 }
