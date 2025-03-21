@@ -33,8 +33,8 @@ The repository includes persistent data storage and implements both
 
 ## Structure
 
-This diagram outlines the project structure. We split our code base
-in a [backend](https://unyt.org/glossary#back-end),
+This diagram outlines the project structure. We split our code base in a
+[backend](https://unyt.org/glossary#back-end),
 [frontend](https://unyt.org/glossary#front-end), and common folder.
 
 ```
@@ -105,4 +105,4 @@ is ready for user interactions as soon as it loads.
 
 ---
 
-<sub>&copy; unyt 2024 • [unyt.org](https://unyt.org)</sub>
+<sub>&copy; unyt 2025 • [unyt.org](https://unyt.org)</sub>
