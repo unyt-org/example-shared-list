@@ -1,17 +1,15 @@
 import { type ListItem } from "backend/lists.ts";
 import { template } from "uix/html/template.ts";
 import { Component } from "uix/components/Component.ts";
-import type { Ref } from "datex-core-legacy/datex_all.ts";
 
-@template(function (this: List) {
-  const { title, items } = this.properties;
+@template(function({ title, items }) {
   return (
     <div>
       <div class="header">
         <h1>{title}</h1>
       </div>
       <ol>
-        {val(items).map((item, index) => (
+        {items.map((item, index) => (
           <li>
             <input
               type="checkbox"
@@ -24,12 +22,14 @@ import type { Ref } from "datex-core-legacy/datex_all.ts";
         ))}
       </ol>
       <button
+        type="button"
         class="add-button"
         onclick:frontend={() => this.dialog.showModal()}
       >
         Add item
       </button>
       <button
+        type="button"
         class="remove-button"
         onclick:frontend={() => this.removeChecked()}
       >
@@ -49,34 +49,30 @@ import type { Ref } from "datex-core-legacy/datex_all.ts";
           max={99}
         />
         <select id="type" value={this.type}>
-          <option name={"bottle"}>Bottle</option>
-          <option name={"piece"}>Piece</option>
-          <option name={"whatever"}>Whatever</option>
+          <option name="bottle">Bottle</option>
+          <option name="piece">Piece</option>
+          <option name="whatever">Whatever</option>
         </select>
-        <div id="add" onclick:frontend={() => this.addItem()}>
+        <button type="button" onclick:frontend={() => this.addItem()}>
           Add
-        </div>
+        </button>
       </dialog>
     </div>
   );
 })
-export class List extends Component<{ title: string; items: Ref<ListItem[]> }> {
+export class List extends Component<{ title: string; items: ListItem[] }> {
   /** references to the DOM elements */
-  @property
-  name = "";
-  @property
-  amount = 1;
-  @property
-  type = "bottle";
-  @id
-  dialog!: HTMLDialogElement;
+  @property name = "";
+  @property amount = 1;
+  @property type = "bottle";
+  @id dialog!: HTMLDialogElement;
 
   /**
    * Remove all checked items
    */
   private removeChecked() {
     const items = this.properties.items;
-    items.val = val(items).filter((e) => !e.checked);
+    items.splice(0, items.length, ...items.filter((e) => !e.checked))
     globalThis.location.reload();
   }
 

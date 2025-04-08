@@ -33,6 +33,6 @@ if (await listStorage.getSize() === 0) {
 
 // The frontend routes definition
 export default {
-  "/": <Overview lists={listStorage} />,
+  "/": () => <Overview lists={listStorage} />,
   "*": null,
 } satisfies Entrypoint;
